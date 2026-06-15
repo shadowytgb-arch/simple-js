@@ -1,13 +1,127 @@
-<div id="loading" style="text-align:center;">
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Loading...</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#111;
+    color:white;
+    overflow:hidden;
+}
+
+/* Loading screen */
+#loading{
+    position:fixed;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#141414,#222);
+}
+
+.spinner{
+    width:70px;
+    height:70px;
+    border:6px solid rgba(255,255,255,.15);
+    border-top:6px solid #fff;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
+}
+
+#loading h1{
+    margin-top:20px;
+    font-size:2rem;
+    font-weight:600;
+}
+
+#loading p{
+    opacity:.7;
+    margin-top:8px;
+}
+
+/* Continue screen */
+#continueBox{
+    position:fixed;
+    inset:0;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    background:linear-gradient(135deg,#141414,#222);
+}
+
+#continueBox h1{
+    margin-bottom:25px;
+}
+
+.continueBtn{
+    padding:15px 45px;
+    font-size:1.1rem;
+    border:none;
+    border-radius:12px;
+    background:#ffffff;
+    color:#111;
+    font-weight:600;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.continueBtn:hover{
+    transform:scale(1.05);
+}
+
+/* Scare image */
+#theimg{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:9999;
+}
+
+#theimg img{
+    width:100vw;
+    height:100vh;
+    object-fit:cover;
+}
+</style>
+</head>
+
+<body>
+
+<div id="loading">
+    <div class="spinner"></div>
     <h1>Loading...</h1>
-    <p>Please wait while the page loads.</p>
+    <p>Please wait while resources are loaded</p>
 </div>
 
-<div id="continueBox" style="display:none; text-align:center;">
-    <button onclick="triggerScare()">Continue</button>
+<div id="continueBox">
+    <h1>Loading Complete</h1>
+    <button class="continueBtn" onclick="triggerScare()">
+        Continue
+    </button>
 </div>
 
-<div id="theimg" style="display:none;">
+<div id="theimg">
     <img src="scare.jpg">
 </div>
 
@@ -15,21 +129,26 @@
 
 <script>
 window.onload = function() {
-    setTimeout(function() {
-        document.getElementById("loading").style.display = "none";
-        document.getElementById("continueBox").style.display = "block";
-    }, 3000);
+    setTimeout(function(){
+        document.getElementById("loading").style.display="none";
+        document.getElementById("continueBox").style.display="flex";
+    },3000);
 };
 
-function triggerScare() {
-    document.getElementById("continueBox").style.display = "none";
-    document.getElementById("theimg").style.display = "block";
-    document.body.style.background = "black";
+function triggerScare(){
+
+    document.getElementById("continueBox").style.display="none";
+
+    document.getElementById("theimg").style.display="block";
 
     document.getElementById("audio").play();
 
-    if (document.documentElement.requestFullscreen) {
+    if(document.documentElement.requestFullscreen){
         document.documentElement.requestFullscreen();
     }
 }
 </script>
+
+</body>
+</html>
+```
